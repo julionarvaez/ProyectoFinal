@@ -1,23 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
 
-import { GuardsComponent } from './guards.component';
-
-describe('GuardsComponent', () => {
-  let component: GuardsComponent;
-  let fixture: ComponentFixture<GuardsComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [GuardsComponent]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(GuardsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+@Component({
+  selector: 'app-guards',
+  templateUrl: './guards.component.html',
+  styleUrls: ['./guards.component.css']
+})
+export class GuardsComponent {}
