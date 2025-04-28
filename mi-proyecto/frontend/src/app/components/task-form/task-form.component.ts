@@ -11,7 +11,7 @@ import { TaskService } from '../../services/task.service';
 export class TaskFormComponent implements OnInit {
   @Output() taskAdded = new EventEmitter<Task>();
   
-  taskForm: FormGroup;
+  taskForm!: FormGroup; // Declaración con el operador "!"
   loading = false;
   error = '';
   success = '';
@@ -33,41 +33,40 @@ export class TaskFormComponent implements OnInit {
   get f() { return this.taskForm.controls; }
 
   onSubmit(): void {
-    // Detener si el formulario es inválido
-    if (this.taskForm.invalid) {
-      return;
-    }
-
-    this.loading = true;
-    this.error = '';
-    this.success = '';
-
-    const task: Task = {
-      title: this.f.title.value,
-      description: this.f.description.value,
-      status: this.f.status.value
-    };
-
-    this.taskService.createTask(task).subscribe(
-      (newTask) => {
-        this.success = 'Tarea creada exitosamente';
-        this.loading = false;
-        this.taskForm.reset({
-          title: '',
-          description: '',
-          status: 'pendiente'
-        });
-        this.taskAdded.emit(newTask);
-        
-        // Limpiar mensaje de éxito después de 3 segundos
-        setTimeout(() => {
-          this.success = '';
-        }, 3000);
-      },
-      (error) => {
-        this.error = error.error.msg || 'Error al crear la tarea';
-        this.loading = false;
-      }
-    );
+  // Detener si el formulario es inválido
+  if (this.taskForm.invalid) {
+    return;
   }
+
+  this.loading = true;
+  this.error = '';
+  this.success = '';
+
+  const task: Task = {
+    title: this.f['title'].value, // Cambiado a notación de índice
+    description: this.f['description'].value, // Cambiado a notación de índice
+    status: this.f['status'].value // Cambiado a notación de índice
+  };
+
+  this.taskService.createTask(task).subscribe(
+    (newTask) => {
+      this.success = 'Tarea creada exitosamente';
+      this.loading = false;
+      this.taskForm.reset({
+        title: '',
+        description: '',
+        status: 'pendiente'
+      });
+      this.taskAdded.emit(newTask);
+      
+      // Limpiar mensaje de éxito después de 3 segundos
+      setTimeout(() => {
+        this.success = '';
+      }, 3000);
+    },
+    (error) => {
+      this.error = error.error.msg || 'Error al crear la tarea';
+      this.loading = false;
+    }
+  );
 }
