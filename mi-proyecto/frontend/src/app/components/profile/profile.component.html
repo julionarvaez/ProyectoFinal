@@ -1,0 +1,46 @@
+<div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Perfil de Usuario</h4>
+          </div>
+          <div class="card-body">
+            <div class="alert alert-info" *ngIf="loading">
+              Cargando datos de usuario...
+            </div>
+            
+            <div class="alert alert-danger" *ngIf="error">
+              {{ error }}
+            </div>
+            
+            <div *ngIf="!loading && user">
+              <div class="text-center mb-4">
+                <div class="avatar-circle mx-auto">
+                  <span class="initials">{{ user.name.charAt(0) | uppercase }}</span>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <h5>Nombre:</h5>
+                  <p>{{ user.name }}</p>
+                </div>
+                <div class="col-md-6">
+                  <h5>Email:</h5>
+                  <p>{{ user.email }}</p>
+                </div>
+              </div>
+              
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <h5>Miembro desde:</h5>
+                  <p>{{ user.date | date:'longDate' }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
